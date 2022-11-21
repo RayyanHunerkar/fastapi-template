@@ -19,7 +19,7 @@ ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 WORKDIR /app
 RUN apt update && apt install libpq-dev -y
-RUN pip install alembic
+RUN pip install alembic coverage
 COPY --from=builder /venv/lib/python3.11/site-packages/  /usr/local/lib/python3.11/site-packages/
 COPY --from=builder /usr/local/bin/ /usr/local/bin/
 COPY . /app/

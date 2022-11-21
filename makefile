@@ -43,7 +43,7 @@ api-up: ## ups the api service
 	docker-composer up -d $(API)
 
 test-async: ## tests asynchronously
-	coverage run --concurrency=greenlet tests --test
+	docker exec -it api coverage run --concurrency=greenlet tests --test
 
 teardown: ## tearsdown the docker services
 	docker-compose down

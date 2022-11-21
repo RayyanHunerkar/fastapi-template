@@ -1,3 +1,5 @@
+import sys
+
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.ext.asyncio import create_async_engine
 from sqlalchemy.orm import declarative_base
@@ -7,6 +9,8 @@ from .settings import DBSettings
 
 Base = declarative_base()
 database = DBSettings.config
+if sys.argv[-1] == '--test':
+    database = DBSettings.config_test
 
 
 class AsyncDatabaseSession:
