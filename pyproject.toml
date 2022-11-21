@@ -10,7 +10,7 @@ packages = [{include = "fastapi_template"}]
 python = "^3.11"
 fastapi = "^0.87.0"
 uvicorn = {extras = ["standard"], version = "^0.19.0"}
-sqlalchemy = "^1.4.44"
+sqlalchemy = {extras = ["asyncio"], version = "^1.4.44"}
 alembic = "^1.8.1"
 asyncpg = "^0.27.0"
 pyjwt = "^2.6.0"
@@ -19,6 +19,10 @@ pytest-cov = "^4.0.0"
 envyaml = "^1.10.211231"
 greenlet = "^2.0.1"
 pre-commit = "^2.20.0"
+pytest-asyncio = "^0.20.2"
+httpx = "^0.23.1"
+sqlalchemy-utils = "^0.38.3"
+pytest-mock = "^3.10.0"
 
 
 [build-system]

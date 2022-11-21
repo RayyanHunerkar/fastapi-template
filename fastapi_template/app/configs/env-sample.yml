@@ -13,6 +13,7 @@ database:
   username: username
   password: password
   name: db-name
+  schema: service
 
 auth:
   secret-key: "Enter Secret Key"

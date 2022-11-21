@@ -7,24 +7,25 @@ env = EnvYAML(f'{BASE_DIR}/fastapi_template/app/configs/env.yaml')
 
 
 class ProjectSettings:
-    title = env['project.title']
-    host = env['project.host']
-    port = env['project.port']
-    root_path = env['project.root-path']
-    version = env['project.version']
-    debug = env['project.debug']
+    title: str = env['project.title']
+    host: str = env['project.host']
+    port: int = env['project.port']
+    root_path: str = env['project.root-path']
+    version: float = env['project.version']
+    debug: bool = env['project.debug']
 
 
 class DBSettings:
-    host = env['database.host']
-    port = env['database.port']
-    username = env['database.username']
-    password = env['database.password']
-    name = env['database.name']
-    schema = env['database.schema']
-    config = f"postgresql+asyncpg://{username}:{password}@{host}/{name}"
+    host: str = env['database.host']
+    port: int = env['database.port']
+    username: str = env['database.username']
+    password: str = env['database.password']
+    name: str = env['database.name']
+    schema: str = env['database.schema']
+    config: str = f"postgresql+asyncpg://{username}:{password}@{host}/{name}"
+    config_test: str = f"postgresql+asyncpg://{username}:{password}@{host}/test"
 
 
 class JWTSettings:
-    secret_key = env['auth.secret-key']
-    algo = env['auth.algorithm']
+    secret_key: str = env['auth.secret-key']
+    algo: str = env['auth.algorithm']
