@@ -10,8 +10,8 @@ class ProjectSettings:
     title: str = env['project.title']
     host: str = env['project.host']
     port: int = env['project.port']
-    root_path: str = env['project.root-path']
-    version: float = env['project.version']
+    root_path = env['project.root-path']
+    version: str = env['project.version']
     debug: bool = env['project.debug']
 
 
