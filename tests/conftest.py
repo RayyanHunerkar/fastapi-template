@@ -3,10 +3,10 @@ from typing import Generator
 
 import pytest
 import pytest_asyncio
+from app.database.db import db
 from httpx import AsyncClient
 
 from fastapi_template.app.app import app
-from fastapi_template.app.configs.db import db
 
 
 @pytest.fixture(scope="session")

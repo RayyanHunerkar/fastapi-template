@@ -1,13 +1,14 @@
 from collections import defaultdict
 
+from app.database.db import session
 from fastapi import FastAPI
 from fastapi import status
 from fastapi.encoders import jsonable_encoder
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 
-from .configs.db import db
 from .configs.settings import ProjectSettings
+from .routes.user import auth_router
 
 app = FastAPI(
     title=ProjectSettings.title,
@@ -41,14 +42,17 @@ async def custom_form_validation_error(request, exc):
 
 @app.on_event("startup")
 async def startup():
-    await db.create_all()
+    await session.create_all()
 
 
 @app.on_event("shutdown")
 async def shutdown():
-    await db.close()
+    await session.close()
 
 
 @app.get("/ping", status_code=status.HTTP_200_OK)
 async def health() -> str:
     return "pong"
+
+
+app.include_router(auth_router)

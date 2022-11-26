@@ -11,8 +11,8 @@ if __name__ == "__main__":
         host=ProjectSettings.host,
         port=int(ProjectSettings.port),
         reload=True,
-        log_config=logging.config.fileConfig(
-            f'{BASE_DIR}/fastapi_template/app/configs/logging.conf',
-            disable_existing_loggers=False
-        )
+        # log_config=logging.config.fileConfig(
+        #     f'{BASE_DIR}/fastapi_template/app/configs/logging.conf',
+        #     disable_existing_loggers=False
+        # )
     )

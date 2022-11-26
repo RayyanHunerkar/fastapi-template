@@ -1,11 +1,10 @@
 import sys
 
+from app.configs.settings import DBSettings
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.ext.asyncio import create_async_engine
 from sqlalchemy.orm import declarative_base
 from sqlalchemy.orm import sessionmaker
-
-from .settings import DBSettings
 
 Base = declarative_base()
 database = DBSettings.config
@@ -36,4 +35,12 @@ class AsyncDatabaseSession:
             await conn.run_sync(Base.metadata.drop_all)
 
 
-db = AsyncDatabaseSession()
+session = AsyncDatabaseSession()
+
+
+async def get_db():
+    _session = AsyncDatabaseSession()
+    try:
+        yield _session
+    finally:
+        await _session.close()

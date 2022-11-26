@@ -33,6 +33,9 @@ docker-make-migrate: ## generate migrations for docker
 docker-migrate: ## runs the migrations for docker
 	docker exec -it $(API) alembic upgrade head
 
+docker-migrate-base-downgrade: ## runs the migrations for docker
+	docker exec -it $(API) alembic downgrade base
+
 up-build: ## builds the dockerfile and ups the services
 	docker-compose up -d --build
 
