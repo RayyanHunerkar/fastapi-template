@@ -2,19 +2,20 @@
 
 project:
   title: FastApi
-  host: localhost
-  port: 8000
+  host: 0.0.0.0
+  port: 8080
   root-path: /api
   version: 0.1.0
+  debug: True
 
 database:
-  host: host
+  host: db
   port: 5432
-  username: username
-  password: password
-  name: db-name
+  username: postgres
+  password: postgres
+  name: fast-template
   schema: service
 
 auth:
-  secret-key: "Enter Secret Key"
+  secret-key: Enter Secret Key
   algorithm: HS256

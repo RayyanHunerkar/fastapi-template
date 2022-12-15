@@ -56,21 +56,22 @@ def run_migrations_offline() -> None:
     with context.begin_transaction():
         context.run_migrations()
 
-# Uncomment this to use schema based able migration
 
-# def include_object(object, name, type_, reflected, compare_to):
-#     if type_ == "table" and object.schema == "candidateservice":
-#         return True
+# Uncomment this to use schema based migration
+# def include_name(name, type_, parent_names):
+#     if type_ == "schema":
+#         return name in ["schema1", "schema2"]
 #     else:
-#         return False
-
+#         return True
 
 def do_run_migrations(connection: Connection) -> None:
     context.configure(
         connection=connection,
         target_metadata=target_metadata,
         include_schemas=True,
-        # include_object=include_object
+        # version_table='alembic_version',
+        # version_table_schema="schema",
+        # include_name=include_name
     )
 
     with context.begin_transaction():

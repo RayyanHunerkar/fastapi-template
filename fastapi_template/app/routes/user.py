@@ -30,7 +30,6 @@ auth_router = APIRouter(
 async def register(body: Register, db: Session = Depends(get_db)) -> dict:
     serializer = await register_serializer(body)
     user = await get_user_email(db, serializer.get('email'))
-    print(user)
     if user:
         raise HTTPException(
             detail={
