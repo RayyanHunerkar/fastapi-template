@@ -53,9 +53,16 @@ async def register(body: Register, db: Session = Depends(get_db)) -> dict:
 async def login(body: Login, db: Session = Depends(get_db)) -> dict:
     serializer = await login_serializer(body)
     user = await get_user_email(db, serializer.get('email'))
-    if verify_password(serializer.get('password'), user['User'].password):
-        result = await get_user_serializer(user['User'])
-        return {
-            'data': sign_jwt(result),
-            "message": "user logged in"
-        }
+    if user:
+        if verify_password(serializer.get('password'), user['User'].password):
+            result = await get_user_serializer(user['User'])
+            return {
+                'data': sign_jwt(result),
+                "message": "user logged in"
+            }
+    raise HTTPException(
+        detail={
+            "message": "user credentials are wrong"
+        },
+        # status_code=status.HTTP_400_BAD_REQUEST
+    )

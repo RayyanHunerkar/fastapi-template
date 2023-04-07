@@ -1,14 +1,16 @@
-from collections import defaultdict
-
-from app.database.db import session
 from fastapi import FastAPI
 from fastapi import status
-from fastapi.encoders import jsonable_encoder
-from fastapi.exceptions import RequestValidationError
-from fastapi.responses import JSONResponse
+from fastapi.exceptions import RequestValidationError, HTTPException
 
+from app.database.db import session
 from .configs.settings import ProjectSettings
 from .routes.user import auth_router
+from .utils.exception_handler import (
+    custom_form_validation_error,
+    http_exception_handler,
+    unhandled_exception_handler
+)
+from .utils.middlewares import log_request_middleware
 
 app = FastAPI(
     title=ProjectSettings.title,
@@ -22,27 +24,10 @@ app = FastAPI(
 
 app.mount(ProjectSettings.root_path, app)
 
-
-@app.exception_handler(RequestValidationError)
-async def custom_form_validation_error(request, exc):
-    reformatted_message = defaultdict(list)
-    for pydantic_error in exc.errors():
-        loc, msg = pydantic_error["loc"], pydantic_error["msg"]
-        filtered_loc = loc[1:] if loc[0] in ("body", "query", "path") else loc
-        field_string = ".".join(str(filtered_loc))  # nested fields with dot-notation
-        reformatted_message[field_string].append(msg)
-
-    return JSONResponse(
-        status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-        content=jsonable_encoder(
-            {"detail": "Invalid request", "errors": reformatted_message}
-        ),
-    )
-
-
-@app.on_event("startup")
-async def startup():
-    await session.create_all()
+app.middleware("http")(log_request_middleware)
+app.add_exception_handler(RequestValidationError, custom_form_validation_error)
+app.add_exception_handler(HTTPException, http_exception_handler)
+app.add_exception_handler(Exception, unhandled_exception_handler)
 
 
 @app.on_event("shutdown")
