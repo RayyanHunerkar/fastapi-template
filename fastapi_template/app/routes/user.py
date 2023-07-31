@@ -64,5 +64,4 @@ async def login(body: Login, db: Session = Depends(get_db)) -> dict:
         detail={
             "message": "user credentials are wrong"
         },
-        # status_code=status.HTTP_400_BAD_REQUEST
     )

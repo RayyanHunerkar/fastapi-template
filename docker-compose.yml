@@ -14,21 +14,6 @@ services:
     networks:
       - db-network
 
-  graphql-engine:
-    container_name: graphql-engine
-    image: hasura/graphql-engine:v2.10.2.ubuntu
-    ports:
-      - "8080:8080"
-    depends_on:
-      - db
-    restart: always
-    environment:
-      HASURA_GRAPHQL_DATABASE_URL: postgres://postgres:postgres@db/fast-template
-      PG_DATABASE_URL: postgres://postgres:postgres@db/fast-template
-      HASURA_GRAPHQL_ENABLE_CONSOLE: "true"
-    networks:
-      - db-network
-
   api:
     build: .
     container_name: api
