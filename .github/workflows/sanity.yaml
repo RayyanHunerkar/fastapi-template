@@ -53,11 +53,5 @@ jobs:
           poetry install
       - name: Test with pytest
         run: |
-          cd /home/runner/work/fastapi-template
           poetry run pip install pytest pytest-cov pytest-html pytest-sugar pytest-json-report pytest-asyncio
           poetry run coverage run --concurrency=greenlet tests --test
-      - name: Archive pytest coverage results
-        uses: actions/upload-artifact@v1
-        with:
-          name: pytest-coverage-report
-          path: reports/pytest/
