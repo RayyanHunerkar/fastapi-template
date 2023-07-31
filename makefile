@@ -13,14 +13,6 @@ API?=api
 help: ## Show this help
 	@egrep -h '\s##\s' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
 
-#.PHONY: venv
-#venv: ## Make a new virtual environment
-#	python3 -m venv $(VENV) && source $(BIN)/activate && exec bash
-#
-#.PHONY: install
-#install: ## Make venv and install requirements
-#	$(BIN)/pip install -r requirements.txt
-
 make-migrate: ## Generate migration files
 	alembic revision --autogenerate -m '$(MESSAGE)'
 
