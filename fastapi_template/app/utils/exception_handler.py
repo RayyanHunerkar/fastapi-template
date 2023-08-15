@@ -11,7 +11,7 @@ from fastapi.responses import PlainTextResponse
 from fastapi.responses import Response
 from starlette import status
 
-from .logger import logger
+from app.utils.logger import logger
 
 
 async def custom_form_validation_error(request, exc):

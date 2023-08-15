@@ -2,15 +2,15 @@ from fastapi import FastAPI
 from fastapi import status
 from fastapi.exceptions import RequestValidationError, HTTPException
 
+from app.configs.settings import ProjectSettings
 from app.database.db import session
-from .configs.settings import ProjectSettings
-from .routes.user import auth_router
-from .utils.exception_handler import (
+from app.routes.user import auth_router
+from app.utils.exception_handler import (
     custom_form_validation_error,
     http_exception_handler,
     unhandled_exception_handler
 )
-from .utils.middlewares import log_request_middleware
+from app.utils.middlewares import log_request_middleware
 
 app = FastAPI(
     title=ProjectSettings.title,

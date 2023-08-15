@@ -7,7 +7,7 @@ from fastapi.security import HTTPAuthorizationCredentials
 from fastapi.security import HTTPBearer
 from starlette.requests import Request
 
-from ..configs.settings import JWTSettings
+from app.configs.settings import JWTSettings
 
 
 def token_response(access_token: str, user: dict) -> dict:
